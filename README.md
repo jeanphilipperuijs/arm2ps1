@@ -1,6 +1,17 @@
 # Generate powershell from ARM template
 
-Example to run
+## Run
+
+### Example
+
+Run using environment variable
+
 ```bash
-TEMPLATEPATH2CRAWL=/home/jph/git/templates/network python3 ./crawler.py
+TEMPLATEPATH2CRAWL=./templates/network python3 ./crawler.py
+```
+
+Run using argument
+
+```bash
+python3 ./crawler.py ./templates/network
 ```
