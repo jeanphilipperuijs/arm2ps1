@@ -21,11 +21,11 @@ psf.generate()
 Run using environment variable
 
 ```bash
-TEMPLATEPATH2CRAWL=./templates/network python3 ./crawler.py
+TEMPLATEPATH2CRAWL=./templates python3 ./crawler.py
 ```
 
 Run using argument
 
 ```bash
-python3 ./crawler.py ./templates/network
+python3 ./crawler.py ./templates
 ```
