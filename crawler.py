@@ -26,8 +26,9 @@ print("Crawling '"+rootDir+"' for ARM templates")
 
 for dirPath, dirNames, fileNames in os.walk(rootDir):
     for fileName in fileNames:
-        if(".json" in fileName and "parameters" not in fileName):
+        # if(".json" in fileName and "parameters" not in fileName):
+        if(".json" in fileName):
             v = os.path.join(dirPath, fileName)
-            psf = Powershellfest(v, resourceGrp, overwrite=False)
+            psf = Powershellfest(v, resourceGrp, overwrite='a')
             print("___")
             psf.generate()

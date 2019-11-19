@@ -1,10 +1,10 @@
 # ARM2PS1
 
-Generate a Powershell script from one ARM template
+Generate a Powershell script from one ARM template to deploy the resources in a resource group `New-AzResourceGroupDeployment`
 
-## Run
+## HowTo
 
-### Simple file
+* Template file
 
 This command generates `mytemplate.ps1` prompting for overwrite.
 
