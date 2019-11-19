@@ -9,7 +9,6 @@ class Powershellfest:
         self.arm_file = arm_template_file
         self.resGrp = resourceGroup
         self.overwrite = overwrite
-        #print(self.arm_file, self.resGrp, self.overwrite)
 
     def generate(self):
         f = io.open(self.arm_file, mode="r", encoding="utf-8").read()
