@@ -1,8 +1,9 @@
 import os
 import sys
-from generate_powershell import Powershellfest
+import time
+from powershellfest import Powershellfest
 
-## mandatory import path
+# mandatory import path
 rootDir = None
 if("ARMTEMPLATEPATH2CRAWL" in os.environ):
     rootDir = os.environ["ARMTEMPLATEPATH2CRAWL"]
@@ -14,7 +15,7 @@ if(rootDir is None):
     sys.exit(1)
 
 
-## optional resource group
+# optional resource group
 resourceGrp = None
 if("RESOURCEGROUP" in os.environ):
     resourceGrp = os.environ["RESOURCEGROUP"]
@@ -27,6 +28,6 @@ for dirPath, dirNames, fileNames in os.walk(rootDir):
     for fileName in fileNames:
         if(".json" in fileName and "parameters" not in fileName):
             v = os.path.join(dirPath, fileName)
-            psf = Powershellfest(v, resourceGrp, overwrite='a')
-            psf.generate_powershell()
-            print()
+            psf = Powershellfest(v, resourceGrp, overwrite=False)
+            print("___")
+            psf.generate()

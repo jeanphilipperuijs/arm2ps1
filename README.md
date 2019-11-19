@@ -1,8 +1,17 @@
-# Generate powershell from ARM template
+# ARM2PS1
 
 ## Run
 
-### Example
+### Generate a Powershell script from one ARM template
+
+```bash
+psf = Powershellfest('./mytemplate.json', overwrite = False)
+psf.generate()
+```
+
+This command generates `mytemplate.ps1` prompting for overwrite
+
+### crawling all subdirectories
 
 Run using environment variable
 
