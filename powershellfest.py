@@ -70,7 +70,11 @@ class Powershellfest:
                 pass
             self.output.write(paramTemplate.substitute(
                 paramKey=key, paramDescription=desc))
-        self.output.write("#>\n")
+        
+        self.output.write('''.LINK
+    https://docs.microsoft.com/en-us/powershell/module/az.resources/new-azresourcegroupdeployment
+    https://github.com/jeanphilipperuijs/arm2ps1''' )
+        self.output.write("\n#>\n")
 
     def generate_params(self):
         t_default = Template('''\t[${type}]$$${key} = ${defaultValue}''')
