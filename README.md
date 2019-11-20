@@ -14,8 +14,8 @@ This python code takes an *ARM template* (eg. `mytemplate.json`) as input and ge
 * `resourceGroup` and `overwrite` are optional, both defaults to `None` or `False`
 
 ```bash
-psf = Powershellfest('./mytemplate.json', resourceGroup = None, overwrite = False)
-psf.generate()
+psf = ARM2Powershellfest('./mytemplate.json', resourceGroup = None, overwrite = False)
+psf.init()
 ```
 
 ### Batch

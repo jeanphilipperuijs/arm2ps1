@@ -1,7 +1,7 @@
 import os
 import sys
 import time
-from powershellfest import Powershellfest
+from arm2powershell import ARM2Powershellfest
 
 # mandatory import path
 rootDir = None
@@ -29,6 +29,6 @@ for dirPath, dirNames, fileNames in os.walk(rootDir):
         # if(".json" in fileName and "parameters" not in fileName):
         if(".json" in fileName):
             v = os.path.join(dirPath, fileName)
-            psf = Powershellfest(v, resourceGrp, overwrite='a')
+            psf = ARM2Powershellfest(v, resourceGrp, overwrite='a')
             print("___")
-            psf.generate()
+            psf.init()
