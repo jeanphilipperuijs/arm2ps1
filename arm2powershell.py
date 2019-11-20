@@ -7,18 +7,18 @@ from pshelp import PowershellHelpHeader
 
 
 class ARM2Powershellfest:
-    def __init__(self, arm_template_file, resourceGroup=None, overwrite=None,
+    def __init__(self, arm_template_file, resourceGroup=None, overwrite='a',
                  newRgDepCmd="New-AzResourceGroupDeployment",
                  links=[
                      'https://docs.microsoft.com/en-us/powershell/module/az.resources/new-azresourcegroupdeployment'],
-                 loglevel=logging.DEBUG, logfilename=None):
+                 logLevel=logging.DEBUG, logFileName=None):
 
         self.arm_file = arm_template_file
         self.resGrp = resourceGroup
         self.overwrite = overwrite
         self.newRgDep = newRgDepCmd
-        self.loglevel = loglevel
-        self.logfilename = logfilename
+        self.logLevel = logLevel
+        self.logFileName = logFileName
 
     def init(self):
         self.filename, file_extension = os.path.splitext(self.arm_file)
@@ -27,19 +27,19 @@ class ARM2Powershellfest:
         logging.debug("_________")
 
     def logger(self):
-        if self.logfilename == 'ungrouped':
-            self.logfilename = self.filename+'.log'
+        if self.logFileName == 'ungrouped':
+            self.logFileName = self.filename+'.log'
 
-        if self.logfilename == 'std':
-            self.logfilename = None
+        if self.logFileName == 'std':
+            self.logFileName = None
 
-        logging.basicConfig(level=self.loglevel,
+        logging.basicConfig(level=self.logLevel,
                             format='%(asctime)s %(levelname)-8s %(message)s',
                             datefmt='%Y-%m-%d %H:%M:%S',
-                            filename=self.logfilename,
+                            filename=self.logFileName,
                             filemode='w')
-        if self.logfilename is not None:
-            logging.info("Logging to "+self.logfilename)
+        if self.logFileName is not None:
+            print("Logging to "+self.logFileName)
 
     def checkFile(self):
         f = io.open(self.arm_file, mode="r", encoding="utf-8").read()

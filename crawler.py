@@ -44,7 +44,7 @@ if("ARM2PS1LOGFILE" in os.environ):
     DEBUG 10
     NOTSET 0
 '''
-logLevel = 10 # 50 debug
+logLevel = 20 # 50 debug
 if("ARM2PS1LOGLEVEL" in os.environ):
     logLevel = os.environ["ARM2PS1LOGLEVEL"]
     print("using env value 'ARM2PS1LOGLEVEL'")
@@ -57,7 +57,6 @@ for dirPath, dirNames, fileNames in os.walk(rootDir):
             psf = ARM2Powershellfest(
                 arm_template_file=v,
                 resourceGroup=resourceGrp,
-                overwrite='a',
-                loglevel=logLevel,
-                logfilename=logFile)
+                logLevel=logLevel,
+                logFileName=logFile)
             psf.init()
