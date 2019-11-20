@@ -1,5 +1,5 @@
 # ARM2PS1
-
+![alt text](arm2psi.png "title")
 Generate a Powershell script from one ARM template to deploy the resources in a resource group `New-AzResourceGroupDeployment`
 
 ## HowTo
