@@ -73,7 +73,7 @@ class Powershellfest:
         self.output.write("#>\n")
 
     def generate_params(self):
-        t_default = Template('''\t[${type}]$$${key}=${defaultValue}''')
+        t_default = Template('''\t[${type}]$$${key} = ${defaultValue}''')
         t_nodefault = Template('''\t[${type}]$$${key}''')
 
         self.output.write("param (")
@@ -94,7 +94,7 @@ class Powershellfest:
                         # not all int, fallback to string
                         pass
                     if(listOfInt):
-                        defList = "@("+",".join(defVal)+")"
+                        defList = "@("+", ".join(defVal)+")"
                     else:
                         defList = "@('"+"', '".join(defVal)+"')"
 
