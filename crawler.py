@@ -3,7 +3,11 @@ import sys
 import time
 from arm2powershell import ARM2Powershellfest
 
-# mandatory import path
+# MANDATORY: import path
+'''
+    Import directory to crawl can be given as command line argument or env variable
+'''
+
 rootDir = None
 if("ARMTEMPLATEPATH2CRAWL" in os.environ):
     rootDir = os.environ["ARMTEMPLATEPATH2CRAWL"]
@@ -15,20 +19,36 @@ if(rootDir is None):
     sys.exit(1)
 
 
-# optional resource group
+# OPTIONAL: default resource group name
 resourceGrp = None
 if("RESOURCEGROUP" in os.environ):
     resourceGrp = os.environ["RESOURCEGROUP"]
     print("using env value 'RESOURCEGROUP'")
 
 
+## OPTIONAL: logfile
+'''
+    default None same as string value 'std'
+'''
+# logFile = 'std'
+# to write in your home dir
+logFile = os.environ['HOME']+"/arm2ps1.log"
+# get value from ENV
+if("ARM2PS1LOGFILE" in os.environ):
+    logFile = os.environ["ARM2PS1LOGFILE"]
+    print("using env value 'ARM2PS1LOGFILE'")
+
+
 print("Crawling '"+rootDir+"' for ARM templates")
 
 for dirPath, dirNames, fileNames in os.walk(rootDir):
     for fileName in fileNames:
-        if(".json" in fileName):
-            print("Analyzing ["+dirPath+fileName+"]")
+        if "json" in fileName:
             v = os.path.join(dirPath, fileName)
             psf = ARM2Powershellfest(
-                v, resourceGrp, overwrite='a', logfilename=os.environ['HOME']+"/arm2ps1.log")
+                arm_template_file=v,
+                resourceGroup=resourceGrp,
+                overwrite='a',
+                loglevel=10,
+                logfilename=logFile)
             psf.init()
