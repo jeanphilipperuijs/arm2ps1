@@ -28,7 +28,7 @@ class Powershellfest:
                     try:
                         fsize = os.path.getsize(self.ps1file)
                     except:
-                        pass
+                        print(self.ps1file+" does not exist")
 
                     if self.overwrite is not 'a':
                         if os.path.isfile(self.ps1file) and fsize > 1:
@@ -73,7 +73,7 @@ class Powershellfest:
         self.output.write("#>\n")
 
     def generate_params(self):
-        t_default = Template('''\t[${type}]$$${key}="${defaultValue}"''')
+        t_default = Template('''\t[${type}]$$${key}=${defaultValue}''')
         t_nodefault = Template('''\t[${type}]$$${key}''')
 
         self.output.write("param (")
@@ -84,8 +84,32 @@ class Powershellfest:
         noi = len(self.items)
         for key, value in self.items:
             if "defaultValue" in value:
-                param = (t_default.substitute(
-                    type=value["type"], key=key, defaultValue=value["defaultValue"]))
+                defVal = value["defaultValue"]
+                defList = None
+                listOfInt = False
+                if type(defVal) is list:
+                    try:
+                        listOfInt = all(type(int(x)) is int for x in defVal)
+                    except Exception as e:
+                        # not all int, fallback to string
+                        pass
+                    if(listOfInt):
+                        defList = "@("+",".join(defVal)+")"
+                    else:
+                        defList = "@('"+"', '".join(defVal)+"')"
+
+                if type(defVal) is list:
+                    if listOfInt:
+                        param = (t_default.substitute(
+                            type="int[]", key=key, defaultValue=defList))
+                    else:
+                        param = (t_default.substitute(
+                            type="string[]", key=key, defaultValue=defList))
+                if type(defVal) is str:
+                    param = (t_default.substitute(
+                        type=value["type"], key=key, defaultValue='"'+defVal+'"'))
+                print(param)
+
             else:
                 param = (t_nodefault.substitute(type=value["type"], key=key))
             self.output.write(param)
@@ -109,6 +133,5 @@ class Powershellfest:
         for key, value in self.items:
             self.output.write("\t-" + key + " $" + key + " `\n")
 
-        self.output.close()
         print('Generated [' + os.path.basename(self.ps1file) +
               '] with ' + str(len(self.items)) + ' parameters')
