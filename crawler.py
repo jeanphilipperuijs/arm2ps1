@@ -26,9 +26,9 @@ print("Crawling '"+rootDir+"' for ARM templates")
 
 for dirPath, dirNames, fileNames in os.walk(rootDir):
     for fileName in fileNames:
-        # if(".json" in fileName and "parameters" not in fileName):
         if(".json" in fileName):
+            print("Analyzing ["+dirPath+fileName+"]")
             v = os.path.join(dirPath, fileName)
-            psf = ARM2Powershellfest(v, resourceGrp, overwrite='a')
-            print("___")
+            psf = ARM2Powershellfest(
+                v, resourceGrp, overwrite='a', logfilename=os.environ['HOME']+"/arm2ps1.log")
             psf.init()
