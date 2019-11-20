@@ -18,13 +18,11 @@ if(rootDir is None):
     print('''Need path to crawl as first argument or as envvar "ARMTEMPLATEPATH2CRAWL"''')
     sys.exit(1)
 
-
 # OPTIONAL: default resource group name
 resourceGrp = None
 if("RESOURCEGROUP" in os.environ):
     resourceGrp = os.environ["RESOURCEGROUP"]
     print("using env value 'RESOURCEGROUP'")
-
 
 ## OPTIONAL: logfile
 '''
@@ -37,11 +35,22 @@ logFile = os.environ['HOME']+"/arm2ps1.log"
 if("ARM2PS1LOGFILE" in os.environ):
     logFile = os.environ["ARM2PS1LOGFILE"]
     print("using env value 'ARM2PS1LOGFILE'")
-
-
-print("Crawling '"+rootDir+"' for ARM templates")
+## OPTIONAL: logLevel
+'''
+    CRITICAL 50
+    ERROR 40
+    WARNING 30
+    INFO 20
+    DEBUG 10
+    NOTSET 0
+'''
+logLevel = 10 # 50 debug
+if("ARM2PS1LOGLEVEL" in os.environ):
+    logLevel = os.environ["ARM2PS1LOGLEVEL"]
+    print("using env value 'ARM2PS1LOGLEVEL'")
 
 for dirPath, dirNames, fileNames in os.walk(rootDir):
+    #print("Looking in ["+dirPath+"] for ARM templates")
     for fileName in fileNames:
         if "json" in fileName:
             v = os.path.join(dirPath, fileName)
@@ -49,6 +58,6 @@ for dirPath, dirNames, fileNames in os.walk(rootDir):
                 arm_template_file=v,
                 resourceGroup=resourceGrp,
                 overwrite='a',
-                loglevel=10,
+                loglevel=logLevel,
                 logfilename=logFile)
             psf.init()
